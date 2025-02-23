@@ -1,0 +1,32 @@
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# npm
+node_modules
+*.log
+*.gz
+
+# config
+.env
+
+# img
+temp/
+upload/
+
+# test
+test.js
+tesgenger.js
+backup
+developTools
+backup/
+
+# db relative
+server/config/config.json
+config/config.json
