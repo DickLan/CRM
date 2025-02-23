@@ -7,6 +7,9 @@ project/
 ├── Dockerfile               # 建置 Docker 映像檔所需的檔案
 ├── package.json             # 專案的基本設定與依賴
 ├── package-lock.json        # npm 依賴鎖定檔
+├── prisma/
+│   ├── schema.prisma        # Prisma 主設定檔(資料表定義、資料庫連線資訊)
+│   └── migrations/          # Prisma migration 檔
 ├── src/
 │   ├── app.js               # Express 主要初始化檔 & 伺服器啟動相關邏輯
 │   ├── routes/
