@@ -1,6 +1,8 @@
 
 
-<!-- 專案架構 -->
+# 專案架構
+
+```
 project/
 ├── .gitignore               # 忽略不需提交的檔案，例如 node_modules 等
 ├── docker-compose.yml       # Docker Compose 設定檔
@@ -27,3 +29,4 @@ project/
 ├── config/
 │   ├── config.js               # 環境變數讀取或 dotenv 設定
 └── README.md                # 專案說明文件
+```
