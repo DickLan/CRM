@@ -1,0 +1,1 @@
+require('dotenv').config(); // 載入 .env 的設定

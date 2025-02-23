@@ -1,5 +1,3 @@
-require('dotenv').config(); // 載入 .env 的設定
-
 const config = {
   database: {
     host: process.env.DB_HOST || 'localhost',
