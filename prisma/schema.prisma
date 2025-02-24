@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
 }
 
 datasource db {
@@ -7,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model customers {
+model customer {
   id          Int       @id @default(autoincrement())
   name        String    @db.VarChar(100)
   email       String?   @db.VarChar(255)
@@ -15,17 +16,17 @@ model customers {
   preferences Json?
   created_at  DateTime? @default(now()) @db.DateTime(0)
   updated_at  DateTime? @default(now()) @db.DateTime(0)
-  orders      orders[]
+  order       order[]
 }
 
-model orders {
+model order {
   id           Int       @id @default(autoincrement())
   customer_id  Int
   order_date   DateTime? @default(now()) @db.DateTime(0)
   total_amount Decimal   @db.Decimal(10, 2)
   created_at   DateTime? @default(now()) @db.DateTime(0)
   updated_at   DateTime? @default(now()) @db.DateTime(0)
-  customers    customers @relation(fields: [customer_id], references: [id], onDelete: Cascade, map: "fk_orders_customers")
+  customer     customer  @relation(fields: [customer_id], references: [id], onDelete: Cascade, map: "fk_order_customer")
 
-  @@index([customer_id], map: "fk_orders_customers")
+  @@index([customer_id], map: "fk_order_customer")
 }
