@@ -1,18 +1,26 @@
-require('dotenv').config(); // 載入 .env 的設定
-
+import dotenv from "dotenv";
 // src/app.js
-const express = require('express');
-const config = require('../config/config');
+import express from "express";
+import config from "../config/config.js";
+import routers from "./routes/index.js";
+
+// 載入環境變量
+dotenv.config()
+
 const app = express();
 
 // 設定中間件、路由等
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
+
+for (const router of routers) {
+  app.use("/api", router);
+}
 
 // 啟動伺服器
 app.listen(config.server.port, () => {
-    console.log(`Server is running on port ${config.server.port}`);
+  console.log(`Server is running on port ${config.server.port}`);
 });
 
-module.exports = app;
+export default app;
