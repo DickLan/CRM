@@ -11,7 +11,7 @@ services:
     command: npm run dev
     environment:
       - NODE_ENV=development
-      - DB_HOST=db  
+      - DB_HOST=db
       - DB_USER=root
       - DB_PASS=password
       - DB_NAME=CRM
@@ -21,7 +21,7 @@ services:
   db:
     image: mysql:8.0
     ports:
-      - "3306:3306"
+      - "3310:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=CRM
