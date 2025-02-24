@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-// src/app.js
 import express from "express";
 import config from "../config/config.js";
 import routers from "./routes/index.js";
@@ -8,7 +7,7 @@ import routers from "./routes/index.js";
 dotenv.config()
 
 const app = express();
-
+app.use(express.json());
 // 設定中間件、路由等
 app.get("/", (req, res) => {
   res.send("Hello World!");
