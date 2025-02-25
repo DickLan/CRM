@@ -6,9 +6,11 @@
 # 使用說明
 
 ## 啟用程式
-1.建置並啟動容器，初次建立會自動建立資料表，並加入測試資料  
-docker-compose up -d --build  
-2.測試 API  
+1.啟動您的 docker，並確認主機的 port 3000 & 3310 未被占用  
+2.複製.env.example，改名為 .env，內容不用變動
+3.執行下行:建置並啟動容器，初次建立會自動建立資料表，並加入測試資料  
+docker-compose up --build  
+4.測試 API  
 開啟瀏覽器，進入：  
 http://localhost:3000/api-docs  
 透過 Swagger 測試 API。
