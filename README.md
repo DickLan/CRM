@@ -1,7 +1,15 @@
 
-# 設計說明
+# CRM 系統 設計說明
 
 本功能針對 CRM 系統設計，用於根據客戶在指定時間範圍內的消費行為來篩選目標客戶。舉例來說，系統可查詢「近 30 天內消費金額超過 500 元」的客戶，並將篩選結果用於後續行銷推播（如發送簡訊或 Email）。
+
+---
+# 目錄
+- [使用說明](#使用說明)
+- [核心功能偽代碼](#核心功能偽代碼)
+- [專案架構](#專案架構)
+- [功能設計說明](#功能設計說明)
+- [資料庫設計](#資料庫設計)
 
 # 使用說明
 
@@ -17,7 +25,7 @@ http://localhost:3000/api-docs
 
 # 核心功能偽代碼
 
-```
+```pl
 FUNCTION filterCustomers(days: INTEGER, amount: FLOAT) RETURNS LIST OF Customer
     # 計算起始時間
     currentDate = getCurrentDateTime()
@@ -53,6 +61,22 @@ END FUNCTION
 
 ```
 
+```pl
+FUNCTION sendMarketingSMS(customers: LIST OF Customer, template: STRING) RETURNS BOOLEAN
+    # 例如 template = "親愛的 {name}，您近30天消費達到 {amount} 元，感謝您的支持！"
+    FOR EACH customer IN customers
+        # 取得客戶姓名與消費金額（可由客戶資料或額外計算獲得）
+        personalizedMessage = REPLACE(template, "{name}", customer.name)
+        personalizedMessage = REPLACE(personalizedMessage, "{amount}", customer.total_amount)
+        
+        # 發送簡訊給客戶 (調用第三方簡訊服務 API)
+        SMSService.send(customer.phone, personalizedMessage)
+    ENDFOR
+
+    RETURN TRUE
+END FUNCTION
+```
+
 # 專案架構
 
 ```
@@ -84,11 +108,28 @@ project/
 └── README.md                # 專案說明文件
 ```
 
+# 功能設計說明
+本系統主要提供根據客戶在指定時間內的消費行為來篩選目標客戶的功能，供後續行銷活動使用。
+
+## 篩選目標客戶 (filterCustomers)
+  流程：  
+    -計算起始時：  
+    -查詢消費紀錄  
+    -篩選符合條件的客戶  
+    -查詢客戶資料
+
+## 發送行銷簡訊 (sendMarketingSMS)：
+  流程：  
+      -接收篩選結果與簡訊範本  
+      -動態變數替換  
+      -發送簡訊
+
+
 # 資料庫設計
 
 -- 1 客戶表：儲存客戶的基本資訊與偏好
 
-```
+```sql
 CREATE TABLE `customer` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '姓名',
@@ -103,7 +144,7 @@ CREATE TABLE `customer` (
 
 -- 2 消費紀錄表：紀錄客戶消費行為
 
-```
+```sql
 CREATE TABLE `order` (
   `id` int NOT NULL AUTO_INCREMENT,
   `customer_id` int NOT NULL COMMENT '客戶 id',
