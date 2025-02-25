@@ -3,8 +3,9 @@ import express from "express";
 import config from "../config/config.js";
 import routers from "./routes/index.js";
 import errorHandler from "./middlewares/errorHandler.js";
+import { swaggerUi, specs } from "./swagger.js";
 // 載入環境變量
-dotenv.config()
+dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,9 @@ app.get("/", (req, res) => {
 for (const router of routers) {
   app.use("/api", router);
 }
+
+// 掛載 Swagger 檔案路由
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use(errorHandler);
 

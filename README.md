@@ -8,6 +8,7 @@
 ## 啟用程式
 
 ## 測試 API ( Swagger )
+http://localhost:3000/api-docs
 
 ## 輸入參數
 - **days**：查詢的天數範圍（例如：30 天）。
