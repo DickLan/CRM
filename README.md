@@ -6,6 +6,7 @@
 # 使用說明
 
 ## 啟用程式
+docker-compose up
 
 ## 測試 API ( Swagger )
 http://localhost:3000/api-docs

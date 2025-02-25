@@ -6,6 +6,10 @@ WORKDIR /app
 COPY package*.json ./
 # 安裝專案依賴
 RUN npm install
+# 複製 prisma 目錄
+COPY prisma ./prisma
+# 生成 Prisma Client
+RUN npx prisma generate
 # 全域安裝 nodemon
 RUN npm install -g nodemon
 # 檢查
