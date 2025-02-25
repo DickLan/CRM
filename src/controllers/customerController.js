@@ -6,7 +6,7 @@ export async function getFilteredCustomers(req, res, next) {
     const { days, amount } = req.query; 
     const customers = await filterCustomer(days, amount);
 
-    res.json({ data: customers });
+    res.status(200).json({ data: customers });
   } catch (error) {
     next(error);
   }

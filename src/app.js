@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import config from "../config/config.js";
 import routers from "./routes/index.js";
-
+import errorHandler from "./middlewares/errorHandler.js";
 // 載入環境變量
 dotenv.config()
 
@@ -16,6 +16,8 @@ app.get("/", (req, res) => {
 for (const router of routers) {
   app.use("/api", router);
 }
+
+app.use(errorHandler);
 
 // 啟動伺服器
 app.listen(config.server.port, () => {
