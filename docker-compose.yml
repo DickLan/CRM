@@ -1,5 +1,6 @@
 services:
   app:
+    container_name: crm_app
     build: . # 使用同一個專案目錄中的 Dockerfile 建立映像
     # image: node:20.16.0 官方映像
     working_dir: /app
@@ -16,6 +17,7 @@ services:
       - db
 
   db:
+    container_name: crm_mysql
     image: mysql:8.0
     ports:
       - "3310:3306"
@@ -25,6 +27,7 @@ services:
       - MYSQL_PASSWORD=password
     volumes:
       - db-data:/var/lib/mysql
+      - ./initdb:/docker-entrypoint-initdb.d # 第一次啟動 MySQL 容器時（且資料庫目錄 db-data 尚未初始化），容器會自動執行 initdb 目錄中的所有 SQL 腳本來建立資料表並插入測試數據。
 
 volumes:
   db-data:
